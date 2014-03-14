@@ -32,8 +32,8 @@ describe('controllers', function () {
 
             it('should navigate to view2,', function() {
                 expect($location.path()).toBe('/setup');
-            }
-        );
+            });
+        });
     });
-    });
+
 });

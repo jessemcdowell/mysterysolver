@@ -9,8 +9,10 @@ exports.config = {
     'browserName': 'chrome'
   },
 
-  baseUrl: 'http://localhost:8000/app/',
+  baseUrl: 'http://localhost:51547/',
 
+  seleniumAddress: 'http://localhost:4444/wd/hub',
+  
   framework: 'jasmine',
 
   jasmineNodeOpts: {

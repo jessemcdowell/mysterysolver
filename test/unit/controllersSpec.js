@@ -5,7 +5,7 @@
 describe('controllers', function () {
     beforeEach(module('mysterysolver.controllers'));
 
-    describe('HomeController', function() {
+    describe('SetupController', function() {
         var $scope;
         var $location;
 
@@ -13,25 +13,16 @@ describe('controllers', function () {
             $scope = $rootScope.$new();
             $location = angular.mock.$locationMock.$new();
 
-            $controller('HomeController', { $scope: $scope, $location: $location });
+            $controller('SetupController', { $scope: $scope, $location: $location });
         }));
 
-
-        it('should start with an empty list of mysteries', inject(function() {
-            expect($scope.mysteries.length).toBe(0);
-        }));
-
-        describe('createNew()', function() {
+        describe('start()', function() {
             beforeEach(function() {
-                $scope.createNew();
+                $scope.start();
             });
 
-            it('should add a mystery', function() {
-                expect($scope.mysteries.length).toBe(1);
-            });
-
-            it('should navigate to view2,', function() {
-                expect($location.path()).toBe('/setup');
+            it('should navigate to home', function() {
+                expect($location.path()).toBe('/home');
             });
         });
     });

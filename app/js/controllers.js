@@ -2,13 +2,19 @@
 
 /* Controllers */
 
-angular.module('mysterysolver.controllers', []).
-  controller('MyCtrl1', [function() {
+angular.module('mysterysolver.controllers', [])
+    .controller('HomeController', ['$scope', '$location', function($scope, $location) {
+        $scope.mysteries = [];
 
-  }])
-  .controller('MyCtrl2', [function() {
+        $scope.createNew = function() {
+            $scope.mysteries.push({
+                name: "Mystery 1"
+            });
+            ;
+            $location.path('/setup');
+        };
+    }])
+    .controller('SetupController', ['$scope', '$location', function($scope, $location) {
 
-  }])
-  .controller("HomeController", ['$scope', function($scope) {
-      $scope.mysteries = [];
-  }]);
+    }])
+;

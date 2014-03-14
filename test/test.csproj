@@ -1,7 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{E73999BE-1F47-4914-B91B-3142FF1A7E94}</ProjectGuid>
+  </PropertyGroup>
   <ItemGroup>
     <None Include="**\*.js">
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lib\mocks.js" />
   </ItemGroup>
 </Project>

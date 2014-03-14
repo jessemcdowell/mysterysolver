@@ -4,3 +4,13 @@ node_modules/
 tmp
 .DS_Store
 .idea
+[oO]bj/
+[bB]in/
+ClientBin/
+deploy/
+*.user
+*.suo
+*.cache
+_ReSharper.*
+*.resharper
+*.DotSettings

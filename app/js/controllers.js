@@ -8,4 +8,7 @@ angular.module('mysterysolver.controllers', []).
   }])
   .controller('MyCtrl2', [function() {
 
+  }])
+  .controller("HomeController", ['$scope', function($scope) {
+      $scope.mysteries = [];
   }]);

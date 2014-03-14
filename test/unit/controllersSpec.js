@@ -2,15 +2,20 @@
 
 /* jasmine specs for controllers go here */
 
-describe('controllers', function(){
-  beforeEach(module('mysterysolver.controllers'));
+describe('controllers', function () {
+    var $scope;
+    beforeEach(module('mysterysolver.controllers'));
+
+    describe('HomeController', function() {
+
+        beforeEach(inject(function($rootScope, $controller) {
+            $scope = $rootScope.$new();
+            $controller('HomeController', { $scope: $scope });
+        }));
 
 
-  it('should ....', inject(function() {
-    //spec body
-  }));
-
-  it('should ....', inject(function() {
-    //spec body
-  }));
+        it('should have an empty list of mysteries', inject(function() {
+            expect($scope.mysteries.length).toBe(0);
+        }));
+    });
 });

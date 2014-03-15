@@ -1,7 +1,7 @@
 ﻿'use strict';
 
-angular.mock.$locationMock = {
-    $new: function() {
+var locationMock = {
+    new: function() {
         var mock = {
             _currentPath: null
         };

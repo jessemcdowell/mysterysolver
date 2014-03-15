@@ -9,6 +9,6 @@ angular.module('mysterysolver', [
   'mysterysolver.controllers'
 ]).
 config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/start', { templateUrl: 'partials/home.html', controller: 'SetupController' });
+    $routeProvider.when('/start', { templateUrl: 'partials/start.html', controller: 'SetupController' });
     $routeProvider.otherwise({ redirectTo: '/start' });
 }]);

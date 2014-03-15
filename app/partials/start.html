@@ -1,1 +1,29 @@
 ﻿<h1>Start Mystery</h1>
+<form name="form">
+    <div class="area">
+        <h2>Players (Clockwise)</h2>
+        <div>Number of Players: <input type="number" data-ng-model="playerCount" size="2" required="" /></div>
+        <div data-ng-repeat="player in players">
+            Name: <input type="text" data-ng-model="player.name" size="20" required="" />
+            Cards: <input type="number" data-ng-model="player.cards" data-ng-disabled="player.isCurrentPlayer" size="2" />
+        </div>
+    </div>
+
+    <div class="area">
+        <h2>Rules</h2>
+        <div>
+            Questions answered:
+            <input type="radio" ng-model="direction" value="clockwise" />Clockwise
+            <input type="radio" ng-model="direction" value="counterclockwise" />Counter Clockwise
+        </div>
+    </div>
+    
+    <div class="area">
+        <h2>Your Cards</h2>
+        
+    </div>
+
+    <div class="area">
+        <button data-ng-click="start()" data-ng-disabled="form.$invalid">Start</button>
+    </div>
+</form>

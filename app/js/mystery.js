@@ -13,20 +13,20 @@ function _createMystery() {
         questions: [],
 
         init: function() {
-            function createQuestion(name, items) {
+            function createQuestion(name, facts) {
                 var question = {
                     name: name,
-                    items: []
+                    facts: []
                 };
 
-                for (var i = 0; i < items.length; i++) {
-                    question.items.push(createItem(items[i]));
+                for (var i = 0; i < facts.length; i++) {
+                    question.facts.push(createFact(facts[i]));
                 }
 
                 return question;
             }
 
-            function createItem(name) {
+            function createFact(name) {
                 return {
                     name: name
                 };
@@ -43,13 +43,13 @@ function _createMystery() {
             this.players = players;
 
             for (var i = 0; i < this.questions.length; i++) {
-                for (var j = 0; j < this.questions[i].items.length; j++) {
-                    var item = this.questions[i].items[j];
+                for (var j = 0; j < this.questions[i].facts.length; j++) {
+                    var fact = this.questions[i].facts[j];
                     
-                    if (currentPlayerFacts.indexOf(item.name) == -1)
-                        item.status = 'unknown';
+                    if (currentPlayerFacts.indexOf(fact.name) == -1)
+                        fact.status = 'unknown';
                     else
-                        item.status = 'mine';
+                        fact.status = 'mine';
                 }
             }
         }

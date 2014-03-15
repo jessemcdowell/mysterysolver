@@ -23,8 +23,8 @@
         <div class="questionArea">
             <div class="question" data-ng-repeat="question in questions">
                 <h3>{{question.name}}</h3>
-                <div class="questionItem" data-ng-repeat="item in question.items">
-                    <input type="checkbox" data-ng-model="item.selected" /> {{item.name}}
+                <div class="fact" data-ng-repeat="fact in question.facts">
+                    <input type="checkbox" data-ng-model="fact.selected" /> {{fact.name}}
                 </div>
             </div>
         </div>

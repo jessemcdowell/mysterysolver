@@ -35,6 +35,10 @@ describe('controllers', function () {
         it('should have three questions', function() {
             expect($scope.questions.length).toBe(3);
         });
+
+        it('should have multiple facts for the first question', function() {
+            expect($scope.questions[0].length).toBeGreater(1);
+        });
         
         describe('start()', function() {
             beforeEach(function() {

@@ -16,13 +16,13 @@ angular.module('mysterysolver.controllers', ['mysterysolver.mystery'])
             for (var i = 0; i < mystery.questions.length; i++) {
                 var question = {
                     name: mystery.questions[i].name,
-                    items: []
+                    facts: []
                 };
                 $scope.questions.push(question);
                 
-                for (var j = 0; j < mystery.questions[i].items.length; j++) {
-                    question.items.push({                        
-                        name: mystery.questions[i].items[j].name,
+                for (var j = 0; j < mystery.questions[i].facts.length; j++) {
+                    question.facts.push({                        
+                        name: mystery.questions[i].facts[j].name,
                         selected: false
                     });
                 };
@@ -55,8 +55,8 @@ angular.module('mysterysolver.controllers', ['mysterysolver.mystery'])
         $scope.$watch('questions', function () {
             var count = 0;
             for (var i = 0; i < $scope.questions.length; i++) {
-                for (var j = 0; j < $scope.questions[i].items.length; j++) {
-                    if ($scope.questions[i].items[j].selected)
+                for (var j = 0; j < $scope.questions[i].facts.length; j++) {
+                    if ($scope.questions[i].facts[j].selected)
                         count++;
                 }
             }
@@ -64,15 +64,15 @@ angular.module('mysterysolver.controllers', ['mysterysolver.mystery'])
         }, true);
 
         $scope.start = function () {
-            var questionItems = [];
+            var currentPlayerFacts = [];
             for (var i = 0; i < $scope.questions.length; i++) {
-                for (var j = 0; j < $scope.questions[i].items.length; j++) {
-                    if ($scope.questions[i].items[j].selected)
-                        questionItems.push($scope.questions[i].items[j].name);
+                for (var j = 0; j < $scope.questions[i].facts.length; j++) {
+                    if ($scope.questions[i].facts[j].selected)
+                        currentPlayerFacts.push($scope.questions[i].facts[j].name);
                 }
             }
 
-            mystery.start($scope.players, $scope.direction, questionItems);
+            mystery.start($scope.players, $scope.direction, currentPlayerFacts);
             $location.path("/home");
         };
     }])

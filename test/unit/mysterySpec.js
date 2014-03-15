@@ -16,15 +16,15 @@ describe('mystery', function () {
         });
 
         it('should have six suspects', function () {
-            expect(mystery.who.items.length).toBe(6);
+            expect(mystery.who.facts.length).toBe(6);
         });
 
         it('should have six weapons', function () {
-            expect(mystery.what.items.length).toBe(6);
+            expect(mystery.what.facts.length).toBe(6);
         });
 
         it('should have nine locations', function () {
-            expect(mystery.where.items.length).toBe(9);
+            expect(mystery.where.facts.length).toBe(9);
         });
 
         it('should have a counterclockwise direction', function () {
@@ -56,11 +56,11 @@ describe('mystery', function () {
         });
 
         it('should have status mine for facts I had', function() {
-            expect(mystery.who.items[0].status).toBe('mine');
+            expect(mystery.who.facts[0].status).toBe('mine');
         });
 
         it('should have status unknown for facts I didn\'t have', function () {
-            expect(mystery.where.items[1].status).toBe('unknown');
+            expect(mystery.where.facts[1].status).toBe('unknown');
         });
     });
 });

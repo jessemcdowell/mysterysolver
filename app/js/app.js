@@ -3,6 +3,7 @@
 // Declare app level module which depends on filters, and services
 angular.module('mysterysolver', [
   'ngRoute',
+  'mysterysolver.mystery',
   'mysterysolver.filters',
   'mysterysolver.services',
   'mysterysolver.directives',
@@ -10,5 +11,6 @@ angular.module('mysterysolver', [
 ]).
 config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/start', { templateUrl: 'partials/start.html', controller: 'SetupController' });
+    $routeProvider.when('/home', { templateUrl: 'partials/home.html', controller: 'HomeController' });
     $routeProvider.otherwise({ redirectTo: '/start' });
 }]);

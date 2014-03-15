@@ -7,7 +7,4 @@
     <None Include="**\*.js">
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="lib\mocks.js" />
-  </ItemGroup>
 </Project>

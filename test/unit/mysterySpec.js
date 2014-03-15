@@ -35,9 +35,9 @@ describe('mystery', function () {
     describe('is started', function () {
         beforeEach(function() {
             mystery.start([
-                { name: 'You', isCurrentPlayer: true },
-                { name: 'Bob', isCurrentPlayer: false },
-                { name: 'Tom', isCurrentPlayer: false },
+                { name: 'You', isCurrentPlayer: true, cards: 6 },
+                { name: 'Bob', isCurrentPlayer: false, cards: 6 },
+                { name: 'Tom', isCurrentPlayer: false, cards: 6 },
             ], 'clockwise');
         });
 

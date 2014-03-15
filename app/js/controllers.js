@@ -2,8 +2,8 @@
 
 /* Controllers */
 
-angular.module('mysterysolver.controllers', [])
-    .controller('SetupController', ['$scope', '$location', function($scope, $location) {
+angular.module('mysterysolver.controllers', ['mysterysolver.mystery'])
+    .controller('SetupController', ['$scope', '$location', 'mystery', function($scope, $location, mystery) {
 
         init();
         
@@ -37,10 +37,11 @@ angular.module('mysterysolver.controllers', [])
             };
         }
 
-        $scope.start = function() {
+        $scope.start = function () {
+            mystery.start($scope.players, $scope.direction);
             $location.path("/home");
-        };
-        
-
+        };       
     }])
-;
+    .controller('HomeController', ['$scope', 'mystery', function($scope, mystery) {
+        $scope.players = mystery.players;
+    }]);

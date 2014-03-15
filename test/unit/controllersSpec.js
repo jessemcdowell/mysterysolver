@@ -37,7 +37,7 @@ describe('controllers', function () {
         });
 
         it('should have multiple facts for the first question', function() {
-            expect($scope.questions[0].length).toBeGreater(1);
+            expect($scope.questions[0].facts.length).toBeGreaterThan(0);
         });
         
         describe('start()', function() {

@@ -78,4 +78,5 @@ angular.module('mysterysolver.controllers', ['mysterysolver.mystery'])
     }])
     .controller('HomeController', ['$scope', 'mystery', function($scope, mystery) {
         $scope.players = mystery.players;
+        $scope.questions = mystery.questions;
     }]);

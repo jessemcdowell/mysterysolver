@@ -54,5 +54,13 @@ describe('mystery', function () {
         it('should have the specified direction', function () {
             expect(mystery.direction).toBe("clockwise");
         });
+
+        it('should have status mine for facts I had', function() {
+            expect(mystery.who.items[0].status).toBe('mine');
+        });
+
+        it('should have status unknown for facts I didn\'t have', function () {
+            expect(mystery.where.items[1].status).toBe('unknown');
+        });
     });
 });

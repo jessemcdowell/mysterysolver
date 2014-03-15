@@ -38,9 +38,20 @@ function _createMystery() {
             this.questions = [this.who, this.what, this.where];
         },
 
-        start: function(players, direction, questionItems) {
+        start: function(players, direction, currentPlayerFacts) {
             this.direction = direction;
             this.players = players;
+
+            for (var i = 0; i < this.questions.length; i++) {
+                for (var j = 0; j < this.questions[i].items.length; j++) {
+                    var item = this.questions[i].items[j];
+                    
+                    if (currentPlayerFacts.indexOf(item.name) == -1)
+                        item.status = 'unknown';
+                    else
+                        item.status = 'mine';
+                }
+            }
         }
     };
     mystery.init();

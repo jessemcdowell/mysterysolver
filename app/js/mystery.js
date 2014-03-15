@@ -19,8 +19,8 @@ function _createMystery() {
                     items: []
                 };
 
-                for (var itemName in items) {
-                    question.items.push(createItem(itemName));
+                for (var i = 0; i < items.length; i++) {
+                    question.items.push(createItem(items[i]));
                 }
 
                 return question;
@@ -38,8 +38,7 @@ function _createMystery() {
             this.questions = [this.who, this.what, this.where];
         },
 
-        start: function(players, direction) {
-            this.init();
+        start: function(players, direction, questionItems) {
             this.direction = direction;
             this.players = players;
         }

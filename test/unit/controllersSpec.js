@@ -24,10 +24,6 @@ describe('controllers', function () {
             expect($scope.players[0].isCurrentPlayer).toBe(true);
         });
 
-        it('should have an unknown number of cards', function () {
-            expect($scope.players[0].cards).toBeNull();
-        });
-
         it('should have the second player as another player', function () {
             expect($scope.players[1].isCurrentPlayer).toBe(false);
         });
@@ -36,6 +32,10 @@ describe('controllers', function () {
             expect($scope.direction).toBe('counterclockwise');
         });
 
+        it('should have three questions', function() {
+            expect($scope.questions.length).toBe(3);
+        });
+        
         describe('start()', function() {
             beforeEach(function() {
                 $scope.start();

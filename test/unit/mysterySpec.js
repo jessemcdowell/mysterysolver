@@ -38,7 +38,9 @@ describe('mystery', function () {
                 { name: 'You', isCurrentPlayer: true, cards: 6 },
                 { name: 'Bob', isCurrentPlayer: false, cards: 6 },
                 { name: 'Tom', isCurrentPlayer: false, cards: 6 },
-            ], 'clockwise');
+            ], 
+            'clockwise', 
+            ['Mr. Green', 'Colonel Mustard', 'Candlestick', 'Ballroom']);
         });
 
         it('should have the specified players', function() {

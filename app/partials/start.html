@@ -5,7 +5,7 @@
         <div>Number of Players: <input type="number" data-ng-model="playerCount" size="2" required="" /></div>
         <div data-ng-repeat="player in players">
             Name: <input type="text" data-ng-model="player.name" size="20" required="" />
-            Cards: <input type="number" data-ng-model="player.cards" data-ng-disabled="player.isCurrentPlayer" size="2" />
+            Facts: <input type="number" data-ng-model="player.facts" size="2" data-ng-disabled="player.isCurrentPlayer" />
         </div>
     </div>
 
@@ -19,11 +19,18 @@
     </div>
     
     <div class="area">
-        <h2>Your Cards</h2>
-        
+        <h2>Your Facts</h2>
+        <div class="questionArea">
+            <div class="question" data-ng-repeat="question in questions">
+                <h3>{{question.name}}</h3>
+                <div class="questionItem" data-ng-repeat="item in question.items">
+                    <input type="checkbox" data-ng-model="item.selected" /> {{item.name}}
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="area">
-        <button data-ng-click="start()" data-ng-disabled="form.$invalid">Start</button>
+        <button data-ng-click="start()" data-ng-disabled="form.$invalid || players[0].facts == 0">Start</button>
     </div>
 </form>

@@ -18,11 +18,11 @@ function _createMystery() {
             function createQuestion(name, facts) {
                 var question = {
                     name: name,
-                    facts: []
+                    facts: new Array(facts.length)
                 };
 
                 for (var i = 0; i < facts.length; i++) {
-                    question.facts.push(createFact(facts[i]));
+                    question.facts[i] = createFact(facts[i]);
                 }
 
                 return question;

@@ -95,6 +95,18 @@ describe('mystery', function () {
             });
         });
 
+        describe('and we know the location of all the facts in a question but one', function() {
+            beforeEach(function() {
+                mystery.setPlayerFactStatus(1, 'Mrs. Peacock', true);
+                mystery.setPlayerFactStatus(1, 'Prof. Plum', true);
+                mystery.setPlayerFactStatus(2, 'Miss Scarlet', true);
+            });
+
+            it('should change the last fact in the question to status answer', function() {
+                expect(mystery.facts['Mrs. White'].status).toBe('answer');
+            });
+        });
+
         describe('and a player shows a fact to someone else and we know their other facts', function () {
             beforeEach(function () {
                 mystery.setPlayerFactStatus(1, 'Hall', true);

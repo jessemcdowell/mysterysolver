@@ -22,7 +22,7 @@ function _createMystery() {
                 };
 
                 for (var i = 0; i < facts.length; i++) {
-                    question.facts[i] = createFact(facts[i]);
+                    question.facts[i] = createFact(question, facts[i]);
                 }
 
                 return question;
@@ -30,8 +30,9 @@ function _createMystery() {
 
             var allFacts = {};
 
-            function createFact(name) {
+            function createFact(question, name) {
                 var fact = {
+                    question: question,
                     name: name
                 };
 
@@ -49,31 +50,129 @@ function _createMystery() {
 
         start: function(players, direction, currentPlayerFacts) {
             this.direction = direction;
-            this.players = players;
+
+            this.players = Array(players.length);
+            for (var i = 0; i < players.length; i++) {
+                this.players[i] = {
+                    name: players[i].name,
+                    isCurrentPlayer: players[i].isCurrentPlayer,
+                };
+
+                if (players[i].isCurrentPlayer)
+                    this.currentPlayerIndex = i;
+            }            
 
             for (var i = 0; i < this.questions.length; i++) {
                 for (var j = 0; j < this.questions[i].facts.length; j++) {
                     var fact = this.questions[i].facts[j];
 
-                    if (currentPlayerFacts.indexOf(fact.name) == -1)
-                        fact.status = 'unknown';
-                    else
-                        fact.status = 'mine';
+                    fact.status = 'unknown';
+                    fact.playerStatuses = new Array(players.length);
+                    fact.playerStatuses[this.currentPlayerIndex] = false;
+                    fact.knownByPlayerIndex = null;
                 }
+            }
+            
+            for (var i = 0; i < currentPlayerFacts.length; i++) {
+                this.setPlayerFactStatus(this.currentPlayerIndex, currentPlayerFacts[i], true);
             }
         },
 
         setPlayerFactStatus: function(playerIndex, factName, knowsFact) {
+            var fact = this.facts[factName];
 
+            if (fact.playerStatuses[playerIndex] == knowsFact)
+                return;
+            
+            fact.playerStatuses[playerIndex] = knowsFact;
+            
+            if (knowsFact) {
+                fact.knownByPlayerIndex = playerIndex;
+
+                if (playerIndex == this.currentPlayerIndex)
+                    fact.status = 'mine';
+                else
+                    fact.status = 'known';
+
+                // if the player knows the fact, then no else else can know it
+                for (var i = 0; i < this.players.length; i++) {
+                    if (i != playerIndex)
+                        fact.playerStatuses[i] = false;
+                }
+
+                this.checkQuestionForAnswer(fact.question);
+            } else {
+                // if no player knows the fact, then it must be an answer
+                var isAnswer = true;
+                for (var i = 0; i < this.players.length; i++) {
+                    if (fact.playerStatuses[i] != false) {
+                        isAnswer = false;
+                        break;
+                    }
+                }
+                if (isAnswer) {
+                    this.setAnswer(fact.name);
+                }
+            }
         },
         
         recordTheoryPasses: function(factNames, playerIndexes) {
-            
+            for (var i = 0; i < factNames.length; i++) {
+                for (var j = 0; j < playerIndexes.length; j++) {
+                    this.setPlayerFactStatus(playerIndexes[j], factNames[i], false);
+                }
+            }
         },
         
-        recordTheoryResponder: function(factNames, playerIndex) {
+        recordTheoryResponder: function (factNames, playerIndex) {
+            // if we know that other people had all the facts for a theory, then we know which fact the responder had
+            var remainingFactIndex = null;
+            for (var i = 0; i < factNames.length; i++) {
+                var fact = this.facts[factNames[i]];
 
+                if (fact.status !== 'unknown') {
+                    if (fact.knownByPlayerIndex == playerIndex)
+                        return;
+                } else {
+                    if (remainingFactIndex != null)
+                        return;
+
+                    remainingFactIndex = i;
+                }
+            }
+
+            if (remainingFactIndex != null) {
+                this.setPlayerFactStatus(playerIndex, factNames[remainingFactIndex], true);
+            }
+        },
+        
+        checkQuestionForAnswer: function (question) {
+            // if we know who has all the facts but one of them, then it must be the answer
+            var answerIndex = null;
+            for (var i = 0; i < question.facts.length; i++) {
+                var fact = question.facts[i];
+
+                if (fact.status == 'answer')
+                    return;
+                
+                if (fact.status == 'unknown') {
+                    if (answerIndex != null)
+                        return;
+                    answerIndex = i;
+                }
+            }
+            
+            if (answerIndex != null) {
+                this.setAnswer(question.facts[answerIndex].name);
+            }
+        },
+
+        setAnswer: function(factName) {
+            var fact = this.facts[factName];
+            
+            fact.status = 'answer';
         }
+
     };
     mystery.init();
     return mystery;

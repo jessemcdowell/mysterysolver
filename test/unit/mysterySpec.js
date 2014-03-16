@@ -37,7 +37,7 @@ describe('mystery', function () {
             mystery.start([
                 { name: 'You', isCurrentPlayer: true, cards: 6 },
                 { name: 'Bob', isCurrentPlayer: false, cards: 6 },
-                { name: 'Tom', isCurrentPlayer: false, cards: 6 },
+                { name: 'Tom', isCurrentPlayer: false, cards: 6 }
             ], 
             'clockwise', 
             ['Mr. Green', 'Colonel Mustard', 'Candlestick', 'Ballroom']);
@@ -107,28 +107,25 @@ describe('mystery', function () {
             });
         });
 
-        describe('and a player shows a fact to someone else and we know their other facts', function () {
+        describe('and we know other people have the other facts from a posed theory', function () {
             beforeEach(function () {
-                mystery.setPlayerFactStatus(1, 'Hall', true);
-                mystery.setPlayerFactStatus(1, 'Kitchen', true);
-                mystery.setPlayerFactStatus(1, 'Library', true);
-                mystery.setPlayerFactStatus(1, 'Lounge', true);
-                mystery.setPlayerFactStatus(1, 'Study', true);
-                mystery.recordTheoryResponder(['Rope', 'Wrench', 'Dining Room'], 1);
+                mystery.setPlayerFactStatus(2, 'Rope', true);
+                mystery.recordTheoryResponder(['Mr. Green', 'Rope', 'Dining Room'], 1);
             });
 
             it('should have a status of known', function () {
                 expect(mystery.facts['Dining Room'].status).toBe('known');
             });
         });
-
-        describe('and we know other people have the other facts from a posed theory', function () {
+        
+        describe('and we know someone knows a fact and it and another fact are posed in a theory and the person answers', function() {
             beforeEach(function () {
-                mystery.recordTheoryResponder(['Mr. Green', 'Colonel Mustard', 'Dining Room'], 1);
+                mystery.setPlayerFactStatus(1, 'Rope', true);
+                mystery.recordTheoryResponder(['Mr. Green', 'Rope', 'Dining Room'], 1);
             });
 
-            it('should have a status of known', function () {
-                expect(mystery.facts['Dining Room'].status).toBe('known');
+            it('should keep a status of unknown', function() {
+                expect(mystery.facts['Dining Room'].status).toBe('unknown');
             });
         });
     });

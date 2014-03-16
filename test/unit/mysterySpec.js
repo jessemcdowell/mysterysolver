@@ -56,11 +56,68 @@ describe('mystery', function () {
         });
 
         it('should have status mine for facts I had', function() {
-            expect(mystery.who.facts[0].status).toBe('mine');
+            expect(mystery.facts['Mr. Green'].status).toBe('mine');
         });
 
         it('should have status unknown for facts I didn\'t have', function () {
-            expect(mystery.where.facts[1].status).toBe('unknown');
+            expect(mystery.facts['Billiard Room'].status).toBe('unknown');
+        });
+
+
+        describe('and a player shows us a fact', function () {
+            beforeEach(function() {
+                mystery.setPlayerFactStatus(1, 'Mrs. White', true);
+            });
+
+            it('should have a status of known', function () {
+                expect(mystery.facts['Mrs. White'].status).toBe('known');
+            });
+        });
+
+        describe('and no one has a card from a theory', function() {
+            beforeEach(function() {
+                mystery.recordTheoryPasses(['Mrs. White', 'Candlestick', 'Ballroom'], [1, 2]);
+            });
+
+            it('should have a status of answer', function() {
+                expect(mystery.facts['Mrs. White'].status).toBe('answer');
+            });
+        });
+
+
+        describe('and the current player poses a theory about a fact they possess', function () {
+            beforeEach(function () {
+                mystery.recordTheoryPasses(['Mrs. White', 'Candlestick', 'Ballroom'], [1, 2]);
+            });
+
+            it('should not change status', function () {
+                expect(mystery.facts['Ballroom'].status).toBe('mine');
+            });
+        });
+
+        describe('and a player shows a fact to someone else and we know their other facts', function () {
+            beforeEach(function () {
+                mystery.setPlayerFactStatus(1, 'Hall', true);
+                mystery.setPlayerFactStatus(1, 'Kitchen', true);
+                mystery.setPlayerFactStatus(1, 'Library', true);
+                mystery.setPlayerFactStatus(1, 'Lounge', true);
+                mystery.setPlayerFactStatus(1, 'Study', true);
+                mystery.recordTheoryResponder(['Rope', 'Wrench', 'Dining Room'], 1);
+            });
+
+            it('should have a status of known', function () {
+                expect(mystery.facts['Dining Room'].status).toBe('known');
+            });
+        });
+
+        describe('and we know other people have the other facts from a posed theory', function () {
+            beforeEach(function () {
+                mystery.recordTheoryResponder(['Mr. Green', 'Colonel Mustard', 'Dining Room'], 1);
+            });
+
+            it('should have a status of known', function () {
+                expect(mystery.facts['Dining Room'].status).toBe('known');
+            });
         });
     });
 });

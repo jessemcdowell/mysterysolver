@@ -76,7 +76,41 @@ angular.module('mysterysolver.controllers', ['mysterysolver.mystery'])
             $location.path("/home");
         };
     }])
-    .controller('HomeController', ['$scope', 'mystery', function($scope, mystery) {
+    .controller('HomeController', ['$scope', 'mystery', 'mysteryNavigation', function($scope, mystery, navigation) {
         $scope.players = mystery.players;
         $scope.questions = mystery.questions;
+
+        $scope.startTheory = function (playerIndex) {
+            navigation.navigate('/theory', playerIndex);
+        };
+    }])
+    .controller('TheoryController', ['$scope', 'mystery', 'mysteryNavigation', function ($scope, mystery, navigation) {
+        $scope.playerIndex = navigation.getNavigationData();
+        $scope.playerName = mystery.players[$scope.playerIndex].name;
+        $scope.questions = mystery.questions;
+
+        $scope.who = null;
+        $scope.what = null;
+        $scope.where = null;
+
+        $scope.poseTheory = function() {
+            navigation.navigate('/theoryAnswer', {
+                playerIndex: $scope.playerIndex,
+                facts: [$scope.who, $scope.what, $scope.where]
+            });
+        };
+
+        $scope.cancel = function() {
+            navigation.navigate('/home');
+        };
+    }])
+    .controller('TheoryAnswerController', ['$scope', 'mystery', 'mysteryNavigation', function ($scope, mystery, navigation) {
+        var navigationData = navigation.getNavigationData();
+        $scope.playerIndex = navigationData.playerIndex;
+        $scope.playerName = mystery.players[$scope.playerIndex].name;
+        $scope.facts = navigationData.facts;        
+
+        $scope.cancel = function () {
+            navigation.navigate('/home');
+        };
     }]);

@@ -73,13 +73,13 @@ describe('controllers', function () {
                 );
                 mystery.setPlayerFactStatus(2, 'Rope', true);
 
-                navigation.navigate('/theoryAnswer', { playerIndex: 1, facts: ['Mr. Green', 'Rope', 'Hall'] });
+                navigation.navigate('/theoryAnswer', { playerIndex: 1, factNames: ['Mr. Green', 'Rope', 'Hall'] });
 
                 $controller('TheoryAnswerController', { $scope: $scope, navigation: navigation, mystery: mystery });
             }]));
 
             it('should have three facts', function () {
-                expect($scope.facts.length).toBe(3);
+                expect($scope.factNames.length).toBe(3);
             });
 
             it('should have the asking player index', function() {

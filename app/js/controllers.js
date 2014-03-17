@@ -76,7 +76,7 @@ angular.module('mysterysolver.controllers', ['mysterysolver.mystery'])
             $location.path("/home");
         };
     }])
-    .controller('HomeController', ['$scope', 'mystery', 'mysteryNavigation', function($scope, mystery, navigation) {
+    .controller('HomeController', ['$scope', 'mystery', 'navigation', function($scope, mystery, navigation) {
         $scope.players = mystery.players;
         $scope.questions = mystery.questions;
 
@@ -84,7 +84,7 @@ angular.module('mysterysolver.controllers', ['mysterysolver.mystery'])
             navigation.navigate('/theory', playerIndex);
         };
     }])
-    .controller('TheoryController', ['$scope', 'mystery', 'mysteryNavigation', function ($scope, mystery, navigation) {
+    .controller('TheoryController', ['$scope', 'mystery', 'navigation', function ($scope, mystery, navigation) {
         $scope.playerIndex = navigation.getNavigationData();
         $scope.playerName = mystery.players[$scope.playerIndex].name;
         $scope.questions = mystery.questions;
@@ -104,7 +104,7 @@ angular.module('mysterysolver.controllers', ['mysterysolver.mystery'])
             navigation.navigate('/home');
         };
     }])
-    .controller('TheoryAnswerController', ['$scope', 'mystery', 'mysteryNavigation', function ($scope, mystery, navigation) {
+    .controller('TheoryAnswerController', ['$scope', 'mystery', 'navigation', function ($scope, mystery, navigation) {
         var navigationData = navigation.getNavigationData();
         $scope.playerIndex = navigationData.playerIndex;
         $scope.playerName = mystery.players[$scope.playerIndex].name;

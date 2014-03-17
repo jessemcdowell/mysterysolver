@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mysterysolver.services', [])
-    .service('mysteryNavigation', function($location) {
+    .service('navigation', function($location) {
         var storage = null;
 
         return { 

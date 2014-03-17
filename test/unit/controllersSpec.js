@@ -97,6 +97,10 @@ describe('controllers', function () {
             it('should have the asking player first in the list of players', function() {
                 expect($scope.players[0].playerIndex).toBe(1);
             });
+            
+            it('should have the name of the first player in the list', function () {
+                expect($scope.players[0].name).toBe('Bob');
+            });
         });
 
     });

@@ -151,16 +151,20 @@ function Mystery() {
             for (var j = 0; j < factNames.length; j++) {
                 var fact = this.facts[factNames[j]];
 
+                var factStatus;
                 if (fact.playerStatuses[playerIndex] == true)
-                    factStatuses[j] = 'known';
+                    factStatus = 'known';
                 else if (fact.playerStatuses[playerIndex] == false)
-                    factStatuses[j] = 'negative';
+                    factStatus = 'negative';
                 else
-                    factStatuses[j] = 'unknown';
+                    factStatus = 'unknown';
+
+                factStatuses[j] = { status: factStatus };
             }
 
             playerData.push({
                 playerIndex: playerIndex,
+                name: this.players[playerIndex].name,
                 factStatuses: factStatuses
             });
         }

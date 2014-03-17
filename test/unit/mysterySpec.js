@@ -165,23 +165,23 @@ describe('mystery', function () {
             });
 
             it('should return status known for current player and Mr. Green', function () {
-                expect(playerData[1].factStatuses[0]).toBe('known');
+                expect(playerData[1].factStatuses[0].status).toBe('known');
             });
 
             it('should return status negative for Tom and Mr. Green', function () {
-                expect(playerData[2].factStatuses[0]).toBe('negative');
+                expect(playerData[2].factStatuses[0].status).toBe('negative');
             });
 
             it('should return status known for Tom and Rope', function () {
-                expect(playerData[2].factStatuses[1]).toBe('known');
+                expect(playerData[2].factStatuses[1].status).toBe('known');
             });
 
             it('should return status negative for current player and Rope', function () {
-                expect(playerData[1].factStatuses[1]).toBe('negative');
+                expect(playerData[1].factStatuses[1].status).toBe('negative');
             });
            
             it('should return status unknown for Tom and Hall', function () {
-                expect(playerData[2].factStatuses[2]).toBe('unknown');
+                expect(playerData[2].factStatuses[2].status).toBe('unknown');
             });
         });
     });

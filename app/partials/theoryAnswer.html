@@ -1,9 +1,33 @@
 ﻿<h1>Theory Result</h1>
-<p>Question by {{playerName}}: 
-    <span data-ng-repeat="fact in factNames">
-        <span data-ng-if="$index > 0">, </span>{{fact}}
-    </span>
-    <div class="section">
-        <button data-ng-click="cancel()">Cancel</button>
+<div class="section">
+    <div class="theoryText">
+        Theory by {{playerName}}: 
+        <span data-ng-repeat="fact in factNames"><span data-ng-if="$index > 0">, </span>{{fact}}</span>
     </div>
-</p>
+    <div class="theoryResultArea">
+        <div class="theoryResultHeadings">
+            <h3>&nbsp;</h3>
+            <h3 data-ng-repeat="fact in factNames">{{fact}}</h3>
+            <h3>Unknown</h3>
+        </div>
+        
+        <div class="theoryResultPlayer" data-ng-repeat="player in players">
+            <span class="theoryResultPlayerName">{{player.name}}</span>
+            <span class="theoryResultFact" data-ng-repeat="factStatus in player.factStatuses" data-ng-if="$parent.$index == 0">
+                <img width="14" height="14" class="factStatus" data-ng-src="img/{{factStatus.status}}.png" />
+            </span>
+            <button class="theoryResultFact" data-ng-repeat="factStatus in player.factStatuses" data-ng-if="$parent.$index > 0">
+                <img width="14" height="14" class="factStatus" data-ng-src="img/{{factStatus.status}}.png" />
+            </button>
+            <button class="theoryResultFact" data-ng-if="$index > 0">?</button>
+        </div>
+        <div class="theoryResultPlayer">
+            <span class="theoryResultPlayerName">Nobody</span>
+            <span class="theoryResultFact" data-ng-repeat="fact in factNames">&nbsp;</span>
+            <button class="theoryResultFact">.</button>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <button data-ng-click="cancel()">Cancel</button>
+</div>

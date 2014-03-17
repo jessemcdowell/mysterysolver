@@ -1,9 +1,27 @@
 'use strict';
 
-/* Services */
+angular.module('mysterysolver.services', [])
+    .service('mysteryNavigation', function($location) {
+        var storage = null;
 
+        return { 
+            navigate: function(path, data) {
+                storage = {
+                    path: path,
+                    data: data
+                };
+                $location.path(path);
+            },
+            
+            getNavigationData: function() {
+                if ((storage == null) || (storage.path != $location.path())) {
+                    throw 'navigated without passing data';
+                }
 
-// Demonstrate how to register services
-// In this case it is a simple value service.
-angular.module('mysterysolver.services', []).
-  value('version', '0.1');
+                var data = storage.data;
+                storage = null;
+                return data;
+            }
+        };
+    });
+  

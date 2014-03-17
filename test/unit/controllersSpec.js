@@ -1,7 +1,5 @@
 'use strict';
 
-/* jasmine specs for controllers go here */
-
 describe('controllers', function () {
     beforeEach(module('mysterysolver.controllers'));
 
@@ -9,12 +7,12 @@ describe('controllers', function () {
         var $scope;
         var $location;
 
-        beforeEach(inject(function($rootScope, $controller) {
+        beforeEach(inject(['$rootScope', '$location', '$controller', function($rootScope, location, $controller) {
             $scope = $rootScope.$new();
-            $location = locationMock.new();
+            $location = location;
 
-            $controller('SetupController', { $scope: $scope, $location: $location });
-        }));
+            $controller('SetupController', { $scope: $scope, $location: location });
+        }]));
 
         it('should start with 2 players', function() {
             expect($scope.playerCount).toBe(2);

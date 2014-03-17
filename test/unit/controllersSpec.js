@@ -1,14 +1,19 @@
 'use strict';
 
 describe('controllers', function () {
-    beforeEach(module('mysterysolver.controllers'));
+    beforeEach(function() {
+        module('mysterysolver.controllers');
+        module('mysterysolver.services');
+    });
+
+    var $scope;
+    beforeEach(inject(function($rootScope) {
+        $scope = $rootScope.$new();
+    }));
 
     describe('SetupController', function() {
-        var $scope;
         var $location;
-
-        beforeEach(inject(['$rootScope', '$location', '$controller', function($rootScope, location, $controller) {
-            $scope = $rootScope.$new();
+        beforeEach(inject(['$location', '$controller', function(location, $controller) {
             $location = location;
 
             $controller('SetupController', { $scope: $scope, $location: location });
@@ -49,4 +54,50 @@ describe('controllers', function () {
         });
     });
 
+    describe('TheoryAnswerController', function() {
+        var navigation;
+        var mystery;
+
+        describe('with counter-clockwise direction', function() {
+            beforeEach(inject(['$controller', 'navigation', function ($controller, navigationService) {
+                navigation = navigationService;
+
+                mystery = new Mystery();
+                mystery.start([
+                        { name: 'You', isCurrentPlayer: true, cards: 6 },
+                        { name: 'Bob', isCurrentPlayer: false, cards: 6 },
+                        { name: 'Tom', isCurrentPlayer: false, cards: 6 }
+                ],
+                    'counterclockwise',
+                    ['Mr. Green', 'Colonel Mustard', 'Candlestick', 'Ballroom']
+                );
+                mystery.setPlayerFactStatus(2, 'Rope', true);
+
+                navigation.navigate('/theoryAnswer', { playerIndex: 1, facts: ['Mr. Green', 'Rope', 'Hall'] });
+
+                $controller('TheoryAnswerController', { $scope: $scope, navigation: navigation, mystery: mystery });
+            }]));
+
+            it('should have three facts', function () {
+                expect($scope.facts.length).toBe(3);
+            });
+
+            it('should have the asking player index', function() {
+                expect($scope.playerIndex).toBe(1);
+            });
+
+            it('should have the asking playing name', function() {
+                expect($scope.playerName).toBe('Bob');
+            });
+
+            it('should have as many players as the mystery', function () {
+                expect($scope.players.length).toBe(3);
+            });
+
+            it('should have the asking player first in the list of players', function() {
+                expect($scope.players[0].playerIndex).toBe(1);
+            });
+        });
+
+    });
 });

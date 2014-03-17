@@ -130,7 +130,9 @@ angular.module('mysterysolver.controllers', ['mysterysolver.mystery'])
         var navigationData = navigation.getNavigationData();
         $scope.playerIndex = navigationData.playerIndex;
         $scope.playerName = mystery.players[$scope.playerIndex].name;
-        $scope.facts = navigationData.facts;        
+        $scope.facts = navigationData.facts;
+
+        $scope.players = mystery.getTheoryPlayerData(navigationData.playerIndex, navigationData.facts);
 
         $scope.cancel = function () {
             navigation.navigate('/home');

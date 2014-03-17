@@ -129,4 +129,95 @@ describe('mystery', function () {
             });
         });
     });
+
+
+    describe('is counter-clockwise mid game', function() {
+        beforeEach(function() {
+            mystery.start([
+                    { name: 'You', isCurrentPlayer: true, cards: 6 },
+                    { name: 'Bob', isCurrentPlayer: false, cards: 6 },
+                    { name: 'Tom', isCurrentPlayer: false, cards: 6 }
+                ],
+                'counterclockwise',
+                ['Mr. Green', 'Colonel Mustard', 'Candlestick', 'Ballroom']
+            );
+            mystery.setPlayerFactStatus(2, 'Rope', true);
+        });
+
+        describe('getTheoryPlayerData()', function() {
+            var playerData;
+            beforeEach(function() {
+                playerData = mystery.getTheoryPlayerData(1, ['Mr. Green', 'Rope', 'Hall']);
+            });
+
+            it('should return as many players as the mystery', function () {
+                expect(playerData.length).toBe(3);
+            });
+
+            it('should return the asking player first in the list of players', function () {
+                expect(playerData[0].playerIndex).toBe(1);
+            });
+
+            it('should return all players arranged in counter-clockwise order', function () {
+                expect(playerData[0].playerIndex).toBe(1);
+                expect(playerData[1].playerIndex).toBe(0);
+                expect(playerData[2].playerIndex).toBe(2);
+            });
+
+            it('should return status known for current player and Mr. Green', function () {
+                expect(playerData[1].factStatuses[0]).toBe('known');
+            });
+
+            it('should return status negative for Tom and Mr. Green', function () {
+                expect(playerData[2].factStatuses[0]).toBe('negative');
+            });
+
+            it('should return status known for Tom and Rope', function () {
+                expect(playerData[2].factStatuses[1]).toBe('known');
+            });
+
+            it('should return status negative for current player and Rope', function () {
+                expect(playerData[1].factStatuses[1]).toBe('negative');
+            });
+           
+            it('should return status unknown for Tom and Hall', function () {
+                expect(playerData[2].factStatuses[2]).toBe('unknown');
+            });
+        });
+    });
+
+    describe('is clockwise mid game', function () {
+        beforeEach(function() {
+            mystery.start([
+                    { name: 'You', isCurrentPlayer: true, cards: 6 },
+                    { name: 'Bob', isCurrentPlayer: false, cards: 6 },
+                    { name: 'Tom', isCurrentPlayer: false, cards: 6 }
+                ],
+                'clockwise',
+                ['Mr. Green', 'Colonel Mustard', 'Candlestick', 'Ballroom']
+            );
+            mystery.setPlayerFactStatus(2, 'Rope', true);
+        });
+
+        describe('getTheoryPlayerData()', function () {
+            var playerData;
+            beforeEach(function () {
+                playerData = mystery.getTheoryPlayerData(1, ['Mr. Green', 'Rope', 'Hall']);
+            });
+
+            it('should return as many players as the mystery', function () {
+                expect(playerData.length).toBe(3);
+            });
+
+            it('should return the asking player first in the list of players', function () {
+                expect(playerData[0].playerIndex).toBe(1);
+            });
+
+            it('should return all players arranged in clockwise order', function () {
+                expect(playerData[0].playerIndex).toBe(1);
+                expect(playerData[1].playerIndex).toBe(2);
+                expect(playerData[2].playerIndex).toBe(0);
+            });
+        });
+    });
 });

@@ -138,6 +138,35 @@ function Mystery() {
         }
     };
 
+    this.getTheoryPlayerData = function(theoryPlayerIndex, factNames) {
+        var playerData = [];
+        for (var i = 0; i < this.players.length; i++) {
+            var playerIndex = theoryPlayerIndex + ((this.direction == 'clockwise') ? i : -i);
+            while (playerIndex >= this.players.length)
+                playerIndex -= this.players.length;
+            while (playerIndex < 0)
+                playerIndex += this.players.length;
+
+            var factStatuses = new Array(factNames.length);
+            for (var j = 0; j < factNames.length; j++) {
+                var fact = this.facts[factNames[j]];
+
+                if (fact.playerStatuses[playerIndex] == true)
+                    factStatuses[j] = 'known';
+                else if (fact.playerStatuses[playerIndex] == false)
+                    factStatuses[j] = 'negative';
+                else
+                    factStatuses[j] = 'unknown';
+            }
+
+            playerData.push({
+                playerIndex: playerIndex,
+                factStatuses: factStatuses
+            });
+        }
+        return playerData;
+    };
+
     function checkQuestionForAnswer(question) {
         // if we know who has all the facts but one of them, then it must be the answer
         var answerIndex = null;

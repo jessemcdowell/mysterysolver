@@ -3,7 +3,7 @@
 describe('mystery', function () {
     var mystery = {};
     beforeEach(function() {
-        mystery = _createMystery();
+        mystery = new Mystery();
     });
 
     describe('is initialized', function() {

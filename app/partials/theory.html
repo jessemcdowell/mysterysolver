@@ -3,26 +3,10 @@
     <div class="section">
         <h2>Facts</h2>
         <div class="questionArea">
-            <div class="question">
-                <h3>Who</h3>
-                <div class="fact" data-ng-repeat="fact in questions[0].facts">
-                    <input type="radio" name="who" data-ng-model="$parent.who" data-ng-value="fact.name" />
-                    <img width="14" height="14" class="factStatus" data-ng-src="img/{{fact.status}}.png" />
-                    <span class="factName">{{fact.name}}</span>
-                </div>
-            </div>
-            <div class="question">
-                <h3>What</h3>
-                <div class="fact" data-ng-repeat="fact in questions[1].facts">
-                    <input type="radio" name="what" data-ng-model="$parent.what" data-ng-value="fact.name" />
-                    <img width="14" height="14" class="factStatus" data-ng-src="img/{{fact.status}}.png" />
-                    <span class="factName">{{fact.name}}</span>
-                </div>
-            </div>
-            <div class="question">
-                <h3>Where</h3>
-                <div class="fact" data-ng-repeat="fact in questions[2].facts">
-                    <input type="radio" name="where" data-ng-model="$parent.where" data-ng-value="fact.name" />
+            <div class="question" data-ng-repeat="question in questions">
+                <h3>{{question.name}}</h3>
+                <div class="fact" data-ng-repeat="fact in question.facts">
+                    <input type="radio" name="{{question.name | lowercase}}" data-ng-model="$parent.question.value" data-ng-value="fact.name" />
                     <img width="14" height="14" class="factStatus" data-ng-src="img/{{fact.status}}.png" />
                     <span class="factName">{{fact.name}}</span>
                 </div>
@@ -30,7 +14,7 @@
         </div>
     </div>
     <div class="section">
-        <button data-ng-click="poseTheory()" data-ng-disabled="who == null || what == null || where == null">Pose Theory</button>
+        <button data-ng-click="poseTheory()" data-ng-disabled="isInvalid()">Pose Theory</button>
         <button data-ng-click="cancel()">Cancel</button>
     </div>
 </form>

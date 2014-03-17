@@ -87,19 +87,41 @@ angular.module('mysterysolver.controllers', ['mysterysolver.mystery'])
     .controller('TheoryController', ['$scope', 'mystery', 'navigation', function ($scope, mystery, navigation) {
         $scope.playerIndex = navigation.getNavigationData();
         $scope.playerName = mystery.players[$scope.playerIndex].name;
-        $scope.questions = mystery.questions;
+        
+        initQuestions();
 
-        $scope.who = null;
-        $scope.what = null;
-        $scope.where = null;
+        function initQuestions() {
+            $scope.questions = [];
+            
+            for (var i = 0; i < mystery.questions.length; i++) {
+                $scope.questions.push({
+                    name: mystery.questions[i].name,
+                    facts: mystery.questions[i].facts,
+                    value: null
+                });
+            }
+        }
 
-        $scope.poseTheory = function() {
-            navigation.navigate('/theoryAnswer', {
-                playerIndex: $scope.playerIndex,
-                facts: [$scope.who, $scope.what, $scope.where]
-            });
+        $scope.isInvalid = function() {
+            for (var i = 0; i < $scope.questions.length; i++) {
+                if ($scope.questions[i].value == null)
+                    return true;
+            }
+            return false;
         };
 
+        $scope.poseTheory = function () {
+            var facts = [];
+            for (var i = 0; i < $scope.questions.length; i++) {
+                facts.push($scope.questions[i].value);
+            }
+
+            navigation.navigate('/theoryAnswer', {
+                playerIndex: $scope.playerIndex,
+                facts: facts
+            });
+        };
+        
         $scope.cancel = function() {
             navigation.navigate('/home');
         };

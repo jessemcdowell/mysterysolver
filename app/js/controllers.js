@@ -134,6 +134,39 @@ angular.module('mysterysolver.controllers', ['mysterysolver.mystery'])
 
         $scope.players = mystery.getTheoryPlayerData(navigationData.playerIndex, navigationData.factNames);
 
+        $scope.playerAnswered = function(playerListIndex, factName) {
+            // record any passes
+            if (playerListIndex > 1) {
+                var playerIndexes = [];
+                for (var i = 1; i < playerListIndex; i++) {
+                    playerIndexes.push($scope.players[i].playerIndex);
+                }
+                mystery.recordTheoryPasses($scope.factNames, playerIndexes);
+            }
+
+            // if we answered, don't record the answer
+            var answeringPlayerIndex = $scope.players[playerListIndex].playerIndex;
+            if (answeringPlayerIndex != mystery.currentPlayerIndex) {
+                // if we saw the answer, record it
+                if (factName != null)
+                    mystery.setPlayerFactStatus(answeringPlayerIndex, factName, true);
+                else
+                    mystery.recordTheoryResponder($scope.factNames, answeringPlayerIndex);
+            }
+
+            navigation.navigate('/home');
+        };
+
+        $scope.nobodyAnswered = function() {
+            var playerIndexes = [];
+            for (var i = 1; i < $scope.players.length; i++) {
+                playerIndexes.push($scope.players[i].playerIndex);
+            }
+            mystery.recordTheoryPasses($scope.factNames, playerIndexes);
+
+            navigation.navigate('/home');
+        };
+
         $scope.cancel = function () {
             navigation.navigate('/home');
         };

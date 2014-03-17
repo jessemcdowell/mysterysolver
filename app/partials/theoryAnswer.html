@@ -13,18 +13,22 @@
         
         <div class="theoryResultPlayer" data-ng-repeat="player in players">
             <span class="theoryResultPlayerName">{{player.name}}</span>
-            <span class="theoryResultFact" data-ng-repeat="factStatus in player.factStatuses" data-ng-if="$parent.$index == 0">
+            <span class="theoryResultFact" data-ng-repeat="factStatus in player.factStatuses" data-ng-if="$parent.$first">
                 <img width="14" height="14" class="factStatus" data-ng-src="img/{{factStatus.status}}.png" />
             </span>
-            <button class="theoryResultFact" data-ng-repeat="factStatus in player.factStatuses" data-ng-if="$parent.$index > 0">
+            <button class="theoryResultFact" data-ng-repeat="factStatus in player.factStatuses" data-ng-if="!$parent.$first"
+                    data-ng-click="$parent.$parent.playerAnswered($parent.$parent.$index, $parent.$parent.factNames[$index])">
                 <img width="14" height="14" class="factStatus" data-ng-src="img/{{factStatus.status}}.png" />
             </button>
-            <button class="theoryResultFact" data-ng-if="$index > 0">?</button>
+            <button class="theoryResultFact" data-ng-if="!$first"
+                    data-ng-click="$parent.$parent.playerAnswered($parent.$index, null)">
+                ?
+            </button>
         </div>
         <div class="theoryResultPlayer">
             <span class="theoryResultPlayerName">Nobody</span>
             <span class="theoryResultFact" data-ng-repeat="fact in factNames">&nbsp;</span>
-            <button class="theoryResultFact">.</button>
+            <button class="theoryResultFact" data-ng-click="nobodyAnswered()">.</button>
         </div>
     </div>
 </div>

@@ -13,8 +13,8 @@
         <h2>Mystery Rules</h2>
         <div class="input">
             Questions answered:
-            <input type="radio" ng-model="direction" value="clockwise" />Clockwise
-            <input type="radio" ng-model="direction" value="counterclockwise" />Counter Clockwise
+            <label><input type="radio" ng-model="direction" value="clockwise" />Clockwise</label>
+            <label><input type="radio" ng-model="direction" value="counterclockwise" />Counter Clockwise</label>
         </div>
     </div>
     
@@ -24,7 +24,9 @@
             <div class="question" data-ng-repeat="question in questions">
                 <h3>{{question.name}}</h3>
                 <div class="fact" data-ng-repeat="fact in question.facts">
-                    <input type="checkbox" data-ng-model="fact.selected" /> {{fact.name}}
+                    <label>
+                        <input type="checkbox" data-ng-model="fact.selected" /> {{fact.name}}
+                    </label>
                 </div>
             </div>
         </div>

@@ -2,8 +2,8 @@
 <form name="form">
     <div class="area">
         <h2>Players (Clockwise)</h2>
-        <div>Number of Players: <input type="number" data-ng-model="playerCount" size="2" required="" /></div>
-        <div data-ng-repeat="player in players">
+        <div class="input">Number of Players: <input type="number" data-ng-model="playerCount" size="2" required="" /></div>
+        <div data-ng-repeat="player in players" class="input">
             Name: <input type="text" data-ng-model="player.name" size="20" required="" />
             Facts: <input type="number" data-ng-model="player.facts" size="2" data-ng-disabled="player.isCurrentPlayer" />
         </div>
@@ -11,7 +11,7 @@
 
     <div class="area">
         <h2>Rules</h2>
-        <div>
+        <div class="input">
             Questions answered:
             <input type="radio" ng-model="direction" value="clockwise" />Clockwise
             <input type="radio" ng-model="direction" value="counterclockwise" />Counter Clockwise

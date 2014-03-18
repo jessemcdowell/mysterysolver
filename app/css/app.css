@@ -1,3 +1,10 @@
+* {
+    font-family: arial;
+}
+div, span {
+    font-size: 14px;
+}
+
 h1 {
     font-family: arial;
     font-size: 24px;
@@ -19,19 +26,19 @@ h3 {
     margin: 0px;
     padding: 2px;
 }
-span.factName {
-    font-family: arial;
-    font-size: 14px;    
-}
 div.section + div.section {
     padding-top: 14px;
+}
+
+div.input {
+    padding-top: 5px;
 }
 
 div.playerButtons {
     display: flex;
     width: 100%;
     flex-direction: row;
-    flex-wrap: wrap;    
+    flex-wrap: wrap;  
 }
 div.playerButtons button {
     flex-grow: 1;

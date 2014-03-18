@@ -1,7 +1,7 @@
 * {
     font-family: arial;
 }
-div, span {
+div, span, td {
     font-size: 14px;
 }
 
@@ -51,4 +51,29 @@ div.questionArea {
 }
 div.questionArea div.question {
     padding-left: 14px;
+}
+
+table.theoryResult tr {
+    height: 36px;
+}
+table.theoryResult thead tr {    
+    height: auto;
+}
+table.theoryResult thead td {    
+    font-weight: bold;
+    text-align: center;
+    padding-left: 8px;
+}
+td.theoryResultPlayerName {
+    font-weight: bold;
+    vertical-align: middle;
+}
+td.theoryResultFact {
+    padding-left: 8px;
+    text-align: center;
+    vertical-align: middle;
+}
+td.theoryResultFact button {
+    width: 40px;
+    height: 30px;
 }

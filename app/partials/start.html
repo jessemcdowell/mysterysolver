@@ -1,7 +1,7 @@
 ﻿<h1>Start Mystery</h1>
 <form name="form">
     <div class="area">
-        <h2>Players (Clockwise)</h2>
+        <h2>Enter Players (Clockwise)</h2>
         <div class="input">Number of Players: <input type="number" data-ng-model="playerCount" size="2" required="" /></div>
         <div data-ng-repeat="player in players" class="input">
             Name: <input type="text" data-ng-model="player.name" size="20" required="" />
@@ -10,7 +10,7 @@
     </div>
 
     <div class="area">
-        <h2>Rules</h2>
+        <h2>Mystery Rules</h2>
         <div class="input">
             Questions answered:
             <input type="radio" ng-model="direction" value="clockwise" />Clockwise
@@ -19,7 +19,7 @@
     </div>
     
     <div class="area">
-        <h2>Your Facts</h2>
+        <h2>The Facts You Possess</h2>
         <div class="questionArea">
             <div class="question" data-ng-repeat="question in questions">
                 <h3>{{question.name}}</h3>

@@ -14,3 +14,4 @@ deploy/
 _ReSharper.*
 *.resharper
 *.DotSettings
+build/

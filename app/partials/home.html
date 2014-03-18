@@ -1,7 +1,9 @@
 ﻿<h1>Mystery</h1>
 <div class="section">
     <h2>Player Theory</h2>
-    <button type="button" data-ng-repeat="player in players" data-ng-click="startTheory($index)">{{player.name}}</button>
+    <div class="playerButtons">
+        <button type="button" data-ng-repeat="player in players" data-ng-click="startTheory($index)">{{player.name}}</button>
+    </div>
 </div>
 <div class="section">
     <h2>Facts</h2>

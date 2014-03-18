@@ -1,7 +1,5 @@
 ﻿'use strict';
 
-var _currentMystery = new Mystery();
-
 function Mystery() {
     this.players = [];
     this.direction = 'counterclockwise';
@@ -198,6 +196,8 @@ function Mystery() {
 };
 
 angular.module('mysterysolver.mystery', [])
-.factory('mystery', function() {
-    return _currentMystery;
+.factory('mystery', function () {
+    var mystery = new Mystery();
+
+    return mystery;
 });
